@@ -1,0 +1,25 @@
+{
+  "name": "php-order-form",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/degenge/php-order-form.git"
+  },
+  "author": "Gerrit Degenhardt",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/degenge/php-order-form/issues"
+  },
+  "homepage": "https://github.com/degenge/php-order-form#readme",
+  "dependencies": {
+    "tailwindcss": "^1.8.5"
+  },
+  "devDependencies": {
+    "requirejs": "^2.3.6"
+  }
+}

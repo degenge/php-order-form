@@ -1,0 +1,17 @@
+$background-color: #323232;
+$text-color: #ffffff;
+
+@tailwind base;
+
+@tailwind components;
+
+@tailwind utilities;
+
+html {
+  background-color: $background-color;
+  color: $text-color;
+
+}
+
+
+
