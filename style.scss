@@ -13,5 +13,15 @@ html {
 
 }
 
+//[type="checkbox"] {
+//  display: none !important;
+//}
 
+.test:hover {
+  background-color:  blue;
+}
+
+.test:checked {
+  background-color:  red;
+}
 
