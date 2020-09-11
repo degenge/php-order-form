@@ -19,7 +19,7 @@
 <div class="flex flex-wrap -mx-3 mb-6" >
     <div class="w-full px-3" >
         <label for="email" class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" > Email </label >
-        <input type="email" id="email" name="email" value="<?php echo $email; ?>"
+        <input type="text" id="email" name="email" value="<?php echo $email; ?>"
                class="appearance-none block w-full bg-gray-200 text-gray-700 border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white <?php echo (empty($emailError)) ? 'border-gray-200 focus:border-gray-500' : 'border-red-500'; ?>" >
         <?php echo $emailError; ?>
     </div >
@@ -62,9 +62,13 @@
 </div >
 
 <div class="flex flex-wrap -mx-3 mb-2" >
+    <?php echo $productError; ?>
+</div >
+
+<div class="flex flex-wrap -mx-3 mb-2" >
 
     <div class="w-full px-3 text-center" >
-        <button type="submit" id="submit" name="submit" class="shadow bg-purple-500 hover:bg-purple-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded" >Order
+        <button type="submit" id="submit" name="submit" class="shadow bg-green-500 hover:bg-blue-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded" >Order
         </button >
     </div >
 

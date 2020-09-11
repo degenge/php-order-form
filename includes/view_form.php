@@ -1,3 +1,13 @@
+<?php
+// TODO: Check why Carbon isn't working
+//use Carbon\Carbon;
+
+$date                = new DateTime("now", new DateTimeZone('Europe/Brussels'));
+$timeNormalDelivery  = date("H:i", strtotime('+2 hours', strtotime($date->format('H:i'))));
+$timeExpressDelivery = date("H:i", strtotime('+45 minutes', strtotime($date->format('H:i'))));
+
+?>
+
 <!DOCTYPE html>
 <html lang="en" >
 
@@ -9,7 +19,7 @@
     <link href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css" rel="stylesheet" >
     <link rel="stylesheet" href="css/style.css" />
 
-    <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer ></script >
     <script src="../index.js" type="module" defer ></script >
 
     <title >PHP Order form</title >
@@ -25,11 +35,9 @@
         <div class="container mx-auto px-6 py-3" >
             <div class="flex items-center justify-between" >
                 <div class="hidden w-full text-gray-600 md:flex md:items-center" >
-                    <span class="mx-1 text-sm" >NY</span >
+                    <span class="mx-1 text-sm" >BE</span >
                 </div >
-                <div class="w-full text-gray-700 md:text-center text-2xl font-semibold" >
-                    Brand
-                </div >
+                <div class="w-full text-green-700 md:text-center text-5xl font-semibold" >The paella shop</div >
                 <div class="flex items-center justify-end w-full" >
                     <button @click="cartOpen = !cartOpen" class="text-gray-600 focus:outline-none mx-4 sm:mx-0" >
                         <svg class="h-5 w-5" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor" >
@@ -47,15 +55,7 @@
                 </div >
             </div >
 
-            <nav class="sm:flex sm:justify-center sm:items-center mt-4" >
-                <div class="flex flex-col sm:flex-row" >
-                    <a class="mt-3 text-gray-600 hover:underline sm:mx-3 sm:mt-0" href="#" >Home</a >
-                    <a class="mt-3 text-gray-600 hover:underline sm:mx-3 sm:mt-0" href="#" >Shop</a >
-                    <a class="mt-3 text-gray-600 hover:underline sm:mx-3 sm:mt-0" href="#" >Categories</a >
-                    <a class="mt-3 text-gray-600 hover:underline sm:mx-3 sm:mt-0" href="#" >Contact</a >
-                    <a class="mt-3 text-gray-600 hover:underline sm:mx-3 sm:mt-0" href="#" >About</a >
-                </div >
-            </nav >
+            <?php //require ('view_nav.php'); ?>
 
         </div >
 
@@ -66,10 +66,11 @@
 
         <div class="container mx-auto px-6" >
 
-            <div role="alert" class="mb-3" style="display: <?php echo (isset($_POST['submit'])) ? 'block' : 'none'; ?>" >
+            <div role="alert" class="mb-3" style="display: <?php echo (isset($_POST['submit']) && $isFormValid) ? 'block' : 'none'; ?>" >
                 <div class="bg-green-500 text-white font-bold rounded-t px-4 py-2" > Your order...</div >
                 <div class="border border-t-0 border-green-400 rounded-b bg-green-100 px-4 py-3 text-green-700" >
-                    <p >... has reached us. We'll start prepping immediately...</p >
+                    <p >... has reached us. We'll start prepping your paella immediately...</p >
+                    <p > Your order wil be ready at <strong><?php echo $timeNormalDelivery; ?></strong>. The price of the order is <strong><?php echo $orderAmount;?>eur</strong>.</p >
                 </div >
             </div >
 

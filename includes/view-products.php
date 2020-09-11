@@ -1,21 +1,19 @@
 <?php
 
-function filterProducts($products, $filter)
+// TODO: remove function and take generic one
+function filterProducts1($products, $filter, $value)
 {
-    $test = array_filter($products, function ($var) use ($filter) {
-        return ($var['category'] == $filter);
+    $test = array_filter($products, function ($var) use ($filter, $value) {
+        return ($var[$filter] == $value);
     });
     return $test;
 }
 
-$filteredProducts = filterProducts($products, 'drink');
-
 ?>
-
 
 <div class="mt-16" >
 
-    <h3 class="text-gray-600 text-2xl font-medium" >Our Products</h3 >
+    <h3 class="text-gray-600 text-2xl font-medium mb-3" >Our products</h3 >
 
     <div x-data="{ tab: 'food' }" >
         <div class="flex -mx-px" >
@@ -33,7 +31,7 @@ $filteredProducts = filterProducts($products, 'drink');
 
                 <div class="grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 mt-6" >
 
-                    <?php foreach (filterProducts($products, 'food') as $product) { ?>
+                    <?php foreach (filterProducts1($products, 'category','food') as $product) { ?>
 
                         <div class="w-full max-w-sm mx-auto rounded-md shadow-md overflow-hidden" >
                             <div class="flex items-end justify-end h-56 w-full bg-cover"
@@ -55,7 +53,7 @@ $filteredProducts = filterProducts($products, 'drink');
 
                             </div >
                             <div class="px-5 py-3" >
-                                <h3 class="text-gray-700 uppercase" ><?php echo $product['name']; ?></h3 >
+                                <h3 class="text-green-700 uppercase" ><?php echo $product['name']; ?></h3 >
                                 <span class="text-gray-500 mt-2" ><?php echo $product['price'] . 'eur'; ?></span >
                             </div >
                         </div >
@@ -69,7 +67,7 @@ $filteredProducts = filterProducts($products, 'drink');
             <li x-show="tab === 'drinks'" >
 
                 <div class="grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 mt-6" >
-                    <?php foreach (filterProducts($products, 'drink') as $product) { ?>
+                    <?php foreach (filterProducts1($products, 'category','drink') as $product) { ?>
 
                         <div class="w-full max-w-sm mx-auto rounded-md shadow-md overflow-hidden" >
                             <div class="flex items-end justify-end h-56 w-full bg-cover"
