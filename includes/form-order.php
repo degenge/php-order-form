@@ -1,4 +1,4 @@
-<div class="flex flex-wrap -mx-3 mb-6" >
+<div class="flex flex-wrap -mx-3 mb-1" >
 
     <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0" >
         <label for="name-first" class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" >First Name</label >
@@ -16,7 +16,7 @@
 
 </div >
 
-<div class="flex flex-wrap -mx-3 mb-6" >
+<div class="flex flex-wrap -mx-3 mb-1" >
     <div class="w-full px-3" >
         <label for="email" class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" > Email </label >
         <input type="text" id="email" name="email" value="<?php echo $email; ?>"
@@ -25,7 +25,7 @@
     </div >
 </div >
 
-<div class="flex flex-wrap -mx-3 mb-6" >
+<div class="flex flex-wrap -mx-3 mb-1" >
 
     <div class="w-full md:w-2/3 px-3 mb-6 md:mb-0" >
         <label for="address-street" class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" >Street</label >
@@ -43,7 +43,7 @@
 
 </div >
 
-<div class="flex flex-wrap -mx-3 mb-6" >
+<div class="flex flex-wrap -mx-3 mb-1" >
 
     <div class="w-full md:w-1/3 px-3 mb-6 md:mb-0" >
         <label for="address-zip" class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" >Zip</label >
@@ -61,11 +61,11 @@
 
 </div >
 
-<div class="flex flex-wrap -mx-3 mb-2" >
+<div class="flex flex-wrap -mx-3 mb-1" >
     <?php echo $productError; ?>
 </div >
 
-<div class="flex flex-wrap -mx-3 mb-2" >
+<div class="flex flex-wrap -mx-3 mb-1" >
 
     <div class="w-full px-3 text-center" >
         <button type="submit" id="submit" name="submit" class="shadow bg-green-500 hover:bg-blue-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded" >Order

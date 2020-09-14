@@ -129,3 +129,31 @@ function storeOrderAmount($orderAmount)
         $_SESSION['order-amount-total'] += $orderAmount;
     }
 }
+
+function createOrderTable($products, $orderedProducts)
+{
+    $total = 0;
+    $table = '';
+    $table .= '<table>';
+    $table .= '<thead>';
+    $table .= '<tr>';
+    $table .= '<th>ID</th><th>Description</th><th>Price</th>';
+    $table .= '</tr>';
+    $table .= '</thead>';
+    foreach ($orderedProducts as $orderedProduct) {
+        $filteredProducts = filterProducts($products, 'id', $orderedProduct);
+        foreach ($filteredProducts as $filteredProduct) {
+            $table .= '<tr>';
+            $table .= '<td>' . $filteredProduct['id'] . '</td><td>' . $filteredProduct['name'] . '</td><td>' . $filteredProduct['price'] . '</td>';
+            $table .= '</tr>';
+            $total += $filteredProduct['price'];
+        }
+    }
+    $table .= '<tfooter>';
+    $table .= '<tr>';
+    $table .= '<td></td><td></td><td>' . $total . '</td>';
+    $table .= '</tr>';
+    $table .= '<tfooter>';
+
+    return $table;
+}

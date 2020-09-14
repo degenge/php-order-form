@@ -1,14 +1,31 @@
 <?php
+// TODO: Add Tailwind without CDN
+// TODO Add ALpinjs to js
+// TODO: Add number field to products
+// TODO: Style the add to cart button
+// TODO: Total amount gives error when cache is cleared
+// TODO: Check why Carbon isn't working
+// TODO: ADD express delivery
+// TODO: Lookup product ID in array and return text for mail
 
 declare(strict_types=1);
 
 session_start();
-var_dump($_SESSION);
+//var_dump($_SESSION);
 //session_unset();
 //session_destroy();
 //die();
 
+// Load Composer's autoloader
+require 'vendor/autoload.php';
+
+use Carbon\Carbon;
+
+$dotenv = Dotenv\Dotenv::createImmutable(__DIR__);
+$dotenv->load();
+
 require('product.php');
+require('Mailer.php');
 
 $nameFirst = $nameLast = $email = "";
 
@@ -85,6 +102,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $addressCityError = $errorPrefix . $errorRequiredText . $errorSuffix;
     }
 
+
     if (!empty($_POST['product'])) {
         $orderedProducts = $_POST['product'];
     } else {
@@ -93,15 +111,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 
     if ($isFormValid) {
-        echo 'Name first: ' . $nameFirst . '<br />';
-        echo 'Name last: ' . $nameLast . '<br />';
-        echo 'Email: ' . $email . '<br />';
-        echo 'Address street: ' . $addressStreet . '<br />';
-        echo 'Address number: ' . $addressNumber . '<br />';
-        echo 'Address zip: ' . $addressZip . '<br />';
-        echo 'Address city: ' . $addressCity . '<br />';
+        //echo 'Name first: ' . $nameFirst . '<br />';
+        //echo 'Name last: ' . $nameLast . '<br />';
+        //echo 'Email: ' . $email . '<br />';
+        //echo 'Address street: ' . $addressStreet . '<br />';
+        //echo 'Address number: ' . $addressNumber . '<br />';
+        //echo 'Address zip: ' . $addressZip . '<br />';
+        //echo 'Address city: ' . $addressCity . '<br />';
         $orderAmount = calculateOrderAmount($products, $orderedProducts);
-        echo 'Order amount: ' . $orderAmount . '<br />';
+        //echo 'Order amount: ' . $orderAmount . '<br />';
         storeOrderAmount($orderAmount);
 
         // ADD FIELDS TO SESSION
@@ -110,8 +128,44 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $_SESSION["address-zip"]    = $addressZip;
         $_SESSION["address-city"]   = $addressCity;
 
+        // PHP Version
+        //$date                = new DateTime("now", new DateTimeZone('Europe/Brussels'));
+        //$timeNormalDelivery  = date("H:i", strtotime('+2 hours', strtotime($date->format('H:i'))));
+        //$timeExpressDelivery = date("H:i", strtotime('+45 minutes', strtotime($date->format('H:i'))));
+        // CARBON Version
+        $timeNormalDelivery  = Carbon::now(new DateTimeZone('Europe/Brussels'))->addHours(2)->format('H:i');
+        $timeExpressDelivery = Carbon::now(new DateTimeZone('Europe/Brussels'))->addMinutes(45)->format('H:i');
+        $timeDelivery        = $timeNormalDelivery;
+
+        $productsText = '';
+        foreach ($orderedProducts as $orderedProduct) {
+            $productsText .= $orderedProduct . '<br />';
+        }
+        $productsText1 = createOrderTable($products, $orderedProducts);
+
+        $bodyText = '<p>Hello, </p>';
+        $bodyText .= '<p>You ordered the following at The paella shop:</p><p>' . $productsText1 . '</p>';
+        $bodyText .= '<p>The order address is ' . $addressStreet . ' ' . $addressNumber . ', ' . $addressZip . ' ' . $addressCity . '</p>';
+        $bodyText .= '<p>Your order wil be ready at <strong>' . $timeDelivery . '</strong> . The total amount is <strong>' . $orderAmount . 'eur</strong></p>';
+        $bodyText .= '<p>Thanks for your order.</p>';
+        $bodyText .= '<p>The paella shop</p>';
+
+
         //SEND MAIL
-        //mail('gerrit.degenhardt@telenet.be', 'My Subject', 'blablabla');
+        $mailArray = [
+            'toAddress' => 'gerrit.degenhardt@telenet.be',
+            'toName'    => 'Degenhardt Gerrit',
+            'subject'   => 'Your order from The paella shop.',
+            'body'      => $bodyText,
+        ];
+
+        try {
+            $mail = new Mailer(true, $mailArray);
+            $mail->send();
+        } catch (Exception $e) {
+            //Note that this is catching the PHPMailer Exception class, not the global \Exception type!
+            echo 'Caught a ' . get_class($e) . ': ' . $e->getMessage();
+        }
 
         // RESET FORM FIELDS
         $nameFirst = $nameLast = $email = $addressStreet = $addressNumber = $addressZip = $addressCity = "";

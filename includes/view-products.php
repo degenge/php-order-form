@@ -11,7 +11,7 @@ function filterProducts1($products, $filter, $value)
 
 ?>
 
-<div class="mt-16" >
+<div class="mt-6" >
 
     <h3 class="text-gray-600 text-2xl font-medium mb-3" >Our products</h3 >
 

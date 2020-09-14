@@ -1,13 +1,3 @@
-<?php
-// TODO: Check why Carbon isn't working
-//use Carbon\Carbon;
-
-$date                = new DateTime("now", new DateTimeZone('Europe/Brussels'));
-$timeNormalDelivery  = date("H:i", strtotime('+2 hours', strtotime($date->format('H:i'))));
-$timeExpressDelivery = date("H:i", strtotime('+45 minutes', strtotime($date->format('H:i'))));
-
-?>
-
 <!DOCTYPE html>
 <html lang="en" >
 
@@ -70,7 +60,7 @@ $timeExpressDelivery = date("H:i", strtotime('+45 minutes', strtotime($date->for
                 <div class="bg-green-500 text-white font-bold rounded-t px-4 py-2" > Your order...</div >
                 <div class="border border-t-0 border-green-400 rounded-b bg-green-100 px-4 py-3 text-green-700" >
                     <p >... has reached us. We'll start prepping your paella immediately...</p >
-                    <p > Your order wil be ready at <strong><?php echo $timeNormalDelivery; ?></strong>. The price of the order is <strong><?php echo $orderAmount;?>eur</strong>.</p >
+                    <p > Your order wil be ready at <strong><?php echo $timeDelivery; ?></strong>. The total amount is <strong><?php echo $orderAmount;?>eur</strong>.</p >
                 </div >
             </div >
 
